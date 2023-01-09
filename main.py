@@ -21,19 +21,19 @@ screen = pygame.display.set_mode((en, boy))
 font = pygame.font.SysFont("arial", 20)
 
 # butonlar
-dünya_resmi = pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\earth.jpg")
-ay_resmi = pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\moon.jpg")
-cikis_resmi = pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\exit.jpg")
+dünya_resmi = pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\yuvarlakdünya.png")
+ay_resmi = pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\yuvarlakay.png")
+cikis_resmi = pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\button_quit.png")
 
 object1 = pygame.Rect(20, 50, 20, 50)
 object2 = pygame.Rect(20, 50, 20, 50)
 object3 = pygame.Rect(20, 50, 20, 50)
-object4 = pygame.Rect(20, 50, 20, 50)
+object4 = pygame.Rect(20, 50, 20, 50)   
 obstacle = pygame.Rect(350, 500, 800, 50)
 
-dünya_butonu = button.Button(0, 0, dünya_resmi, 1)
-ay_butonu = button.Button(275, 400, ay_resmi, 1)
-cikis_butonu = button.Button(550, 0, cikis_resmi, 1)
+dünya_butonu = button.Button(90, 70, dünya_resmi, 1)
+ay_butonu = button.Button(700, 70, ay_resmi, 1)
+cikis_butonu = button.Button(400, 400, cikis_resmi, 1)
 
 # States
 moving = False
@@ -80,6 +80,7 @@ while run:
             screen.blit(background, (0,0))
             tahteravalli =pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\tahteravalli2.png")
             screen.blit(tahteravalli,(200,250))
+            
             geri_resmi = pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\button_back.png")
             geri_butonu = button.Button(0, 0, geri_resmi, 1)
             if geri_butonu.draw(screen):
@@ -90,7 +91,7 @@ while run:
             screen.blit(planet_text, (700, 200))
         elif menu_state == "moon":
             # background
-            background = pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\ay.jpg")
+            background = pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\aydunya.png")
             screen.blit(background, (0, 0))
             tahteravalli =pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\tahteravalli2.png")
             screen.blit(tahteravalli,(200,250))
