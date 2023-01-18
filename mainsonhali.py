@@ -2,7 +2,7 @@
 import button
 import pygame 
 import sys
-
+import math
 
 en= 940
 boy = 700
@@ -38,14 +38,14 @@ cikis_butonu = button.Button(400, 600, cikis_resmi, 1)
 tofaş_butonu = button.Button(735,0,tofaş_resmi,1)
 
 # basic font for user typed
-user_text1 = ''
-user_text2 = ''
+user_text = ''
+
 gelenagirlik = 0
 
   
 # create rectangle
-input_rect = pygame.Rect(300, 300, 240, 102)
-input_rect2 = pygame.Rect(300, 300, 240, 102)
+input_rect = pygame.Rect(150, 200, 200, 80)
+
   
 # color_active stores color(lightskyblue3) which
 # gets active when input box is clicked by user
@@ -87,15 +87,11 @@ while run:
             object1.move_ip(event.rel)
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_BACKSPACE:
-                user_text1 = user_text1[:-1]
+                user_text = user_text[:-1]
             else:
-                user_text1 += event.unicode  
-                gelenagirlik = int(user_text1)
-            if event.key == pygame.K_BACKSPACE:
-                user_text2 = user_text2[:-1]
-            else:
-                user_text2 += event.unicode  
-                gelenagirlik = int(user_text2)
+                user_text += event.unicode  
+                gelenagirlik = int(user_text)
+            
     if game_paused:
         
         if menu_state == "main":
@@ -104,8 +100,7 @@ while run:
             screen.blit(background, (0,0))
             arkaplanterazi =pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\giriştahteravallisi.png")
             screen.blit(arkaplanterazi,(500,550))
-            tofaş = pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\tofaş.png")
-            screen.blit(tofaş,(735,0))
+      
             if dünya_butonu.draw(screen):
                 menu_state = "earth"
                 game_paused = False
@@ -114,9 +109,7 @@ while run:
                 game_paused = False
             if cikis_butonu.draw(screen):
                 run = False
-            if tofaş_butonu.draw(screen):
-                menu_state = "tofas"
-                game_paused = False
+          
     else:
         if menu_state == "earth":
             # background
@@ -137,25 +130,27 @@ while run:
                 color = color_passive
                 
             
-            # if geri_butonu.draw(screen):
-            #     user_text = ""
            
-            if geri_butonu.draw(screen):
-                menu_state = "main" 
-                game_paused = True
-                user_text1 = 0
+           
+                if geri_butonu.draw(screen):
+                    menu_state = "main" 
+                    game_paused = True
+                    user_text = ""
             pygame.draw.rect(screen, color, input_rect)
         
-            text_surface = font.render(user_text1, True, (225,225,0))
+            text_surface = font.render(user_text, True, (225,225,0))
             
             screen.blit(text_surface, (input_rect.x+5, input_rect.y+5))
+            
             
            
             if gelenagirlik>agirlik*10:
                 
                 menu_state = "earthup"
                 game_paused = False
-                
+            planet_text = font.render("5 kg", True, (255, 0, 0))
+            screen.blit(planet_text, (650,450))
+
         elif menu_state == "moon":
             # background
             background = pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\aydunya.png")
@@ -175,22 +170,15 @@ while run:
                 color = color_active
             else:
                 color = color_passive
-            # if input_active:
-            #     color = color_active
-            # else:
-            #     color = color_passive
-                
             
-            # if geri_butonu.draw(screen):
-            #     user_text = ""
             if geri_butonu.draw(screen):
                 menu_state = "main" 
                 game_paused = True
-                user_text2 = ""
+                user_text = ""
 
             pygame.draw.rect(screen, color, input_rect)
         
-            text_surface = font.render(user_text2, True, (225,225,0))
+            text_surface = font.render(user_text, True, (225,225,0))
             
             screen.blit(text_surface, (input_rect.x+5, input_rect.y+5))
             
@@ -201,35 +189,13 @@ while run:
                 game_paused = False
                 
                 
-            # # draw rectangle and argument passed which should
-            # # be on screen
-            # pygame.draw.rect(screen, color, input_rect)
-        
-            # text_surface = font.render(user_text, True, (225,0,225))
             
-            # # render at position stated in arguments
-            # screen.blit(text_surface, (input_rect.x+5, input_rect.y+5))
-            
-            # # set width of textfield so that text cannot get
-            # # update screen    
-            # # create planet text
-            # planet_text = font.render("50 N", True, (255, 0, 0))
-            # screen.blit(planet_text, (200,230))
-            # planet_text = font.render("4 kg", True, (255, 0, 0))
-            # screen.blit(planet_text, (650,450))
+            planet_text = font.render("5 kg", True, (255, 0, 0))
+            screen.blit(planet_text, (650,450))
 
 
 
-        elif menu_state == "tofas" :
-            # background
-            background = pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\aydunya.png")
-            screen.blit(background, (0, 0))
-            geri_resmi = pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\button_back.png")
-            geri_butonu = button.Button(0, 0, geri_resmi, 1)
-            
-            if geri_butonu.draw(screen):
-                menu_state = "main" 
-                game_paused = True
+       
         
         elif  menu_state == "earthup" :
             background = pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\Dünya.jpg") 
@@ -243,37 +209,25 @@ while run:
             geri_resmi = pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\button_back.png")
             geri_butonu = button.Button(0, 0, geri_resmi, 1)
            
+            user_text = str(gelenagirlik)
 
-            user_text1 = str(gelenagirlik)
-
+        
         if  geri_butonu.draw(screen):
             menu_state = "main" 
             game_paused = True
-            user_text1 = ""
+            user_text = ""
 
-
-            # if input_active:
-
-            #     color = color_active
-            # else:
-            #     color = color_passive
-                
             
-           
-                
-           
-            # if geri_butonu.draw(screen):
-                # menu_state = "earth" 
-                # game_paused = True
-                # user_text = ""
-            pygame.draw.rect(screen, color, input_rect2)
+
+        
+            pygame.draw.rect(screen, color, input_rect)
             game_paused = True
-            # text_surface = font.render(user_text, False, (225,225,0))
+            text_surface = font.render(user_text, False, (225,225,0))
             
             screen.blit(text_surface, (input_rect.x+5, input_rect.y+5))
             # game_paused = True
         elif  menu_state == "moonup" :
-            background = pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\Dünya.jpg") 
+            background = pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\aydunya.png") 
             screen.blit(background, (0,0))
             tahteravalli =pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\seesawdönük.png")
             screen.blit(tahteravalli,(150,220))
@@ -284,45 +238,21 @@ while run:
             geri_resmi = pygame.image.load("C:\\Users\\ozdem\\Desktop\\proje\\resimler\\button_back.png")
             geri_butonu = button.Button(0, 0, geri_resmi, 1)
           
-            user_text2 = str(gelenagirlik)
+            user_text = str(gelenagirlik)
 
         if geri_butonu.draw(screen):
-            menu_state = "moon" 
+            menu_state = "main" 
             game_paused = True
-            user_text2 = 0   
+            user_text = ""   
 
 
-            # if input_active:
-
-            #     color = color_active
-            # else:
-            #     color = color_passive
-                
-            
-           
-                
-           
-            # if geri_butonu.draw(screen):
-                # menu_state = "earth" 
-                # game_paused = True
-                # user_text = ""
-            pygame.draw.rect(screen, color, input_rect2)
+          
+            pygame.draw.rect(screen, color, input_rect)
             
             text_surface = font.render(user_text, False, (225,225,0))
             
             screen.blit(text_surface, (input_rect.x+5, input_rect.y+5))
             game_paused = True   
-            # if gelenagirlik>agirlik*10:
-                
-            #     menu_state = "earth"
-            #     game_paused = True
-            #     gelenagirlik = 0
-            #     text_surface = ""
-            #     user_text = ""
-            # planet_text = font.render(type(text_surface), True, (255, 0, 0))
-            # screen.blit(planet_text, (200,230))
-            # planet_text = font.render("4 kg", True, (255, 0, 0))
-            # screen.blit(planet_text, (650,450))
-
+          
 
     pygame.display.update()
